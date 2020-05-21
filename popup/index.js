@@ -1,6 +1,9 @@
+load = () => {};
+
 bindEvent = () => {};
 
 init = () => {
+  load();
   bindEvent();
 };
 
