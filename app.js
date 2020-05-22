@@ -1,10 +1,11 @@
 const BUTTON_STYLE = 'background-color: white; width: 45px; height: 45px;'
+const TIMER = 500;
 
 const common = (text, bottom, right, fn) => {
-    const $d = $('<div>');
-    $d.prop('style', `border: 1px solid black; position: fixed; z-index:9999; bottom: ${bottom}px; right: ${right}px;`);
+    const $d = $('<div class="scroll-man">');
+    $d.prop('style', `border: 1px solid black; position: fixed; z-index:99999; bottom: ${bottom}px; right: ${right}px;`);
 
-    const $b = $(`<button>${text}</button>`);
+    const $b = $(`<button class="scroll-man">${text}</button>`);
     $b.prop('style', BUTTON_STYLE);
     $b.click((e) => {
         e.stopPropagation();
@@ -17,7 +18,19 @@ const common = (text, bottom, right, fn) => {
     $('body').append($d);
 }
 
+const draw = () => {
+    window.$scrollMan.common.db.get(window.$scrollMan.CONST.ACTIVE).then((v) => {
+        $('div.scroll-man').remove();
+
+        if(!v) {
+            return;
+        }
+
+        common('&uarr;', 15, 75, () => window.scrollTo(0, 0));
+        common('&darr;', 15, 15, () => window.scrollTo(0, document.body.scrollHeight));
+    });
+}
+
 (function(){
-    common('&uarr;', 18, 110, () => window.scrollTo(0, 0));
-    common('&darr;', 18, 50, () => window.scrollTo(0, document.body.scrollHeight));
+    setInterval(draw, TIMER)
 })();

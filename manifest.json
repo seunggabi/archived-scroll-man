@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
 
-  "name": "scroll-man",
+  "name": "ScrollMan",
   "description": "Go to the top or bottom, by one click\n한번의 클릭으로 상단 or 하단으로 이동하세요!",
   "version": "1.0.0",
 
@@ -17,18 +17,19 @@
       ],
       "js": [
         "common/jquery.min.js",
+        "common/lodash.min.js",
+        "common/common.js",
         "app.js"
       ]
     }
   ],
 
-  "sidebar_action": {
-    "default_page": "popup/index.html",
-    "default_icon": {
-      "128": "images/icon.png"
-    },
+  "permissions": [
+    "storage"
+  ],
 
-    "default_title": "scroll-man",
-    "use_navigation_bar": true
+  "browser_action": {
+    "default_icon": "images/icon.png",
+    "default_popup": "popup/index.html"
   }
 }

@@ -1,5 +1,71 @@
 window.$scrollMan = window.$scrollMan || {};
-window.$scrollMan.common = {};
+window.$scrollMan.CONST = {
+  ACTIVE: 'isActive'
+}
+
+window.$scrollMan.common = {
+  db:  (function () {
+    let name = getName();
+    let type = getType();
+
+    function getName() {
+      return chrome.runtime.getManifest().name.toUpperCase();
+    }
+
+    function getType() {
+      return 'local';
+    }
+
+    function getStorage() {
+      return new Promise((resolve) => {
+        try {
+          chrome.storage[type].get(name, (storage = {}) => {
+            resolve(storage[name] || {});
+          });
+        } catch(e) {
+          resolve();
+        }
+      });
+    }
+
+    function setStorage(data) {
+      return new Promise((resolve) => {
+        let obj = {};
+        obj[name] = data;
+
+        chrome.storage[type].set(obj, () => {
+          resolve();
+        });
+      });
+    }
+
+    function put(key, value) {
+      return new Promise((resolve) => {
+        getStorage().then((storage = {}) => {
+          storage[key] = value;
+
+          setStorage(storage).then(() => {
+            resolve(storage);
+          });
+        });
+      });
+    }
+
+    function get(key) {
+      return new Promise((resolve) => {
+        getStorage().then((storage = {}) => {
+          resolve(storage[key]);
+        });
+      });
+    }
+
+    return {
+      put,
+      get
+    };
+  })(),
+}
+
 window.$scrollMan.common.data = {
   review: {
     className: "red bold",

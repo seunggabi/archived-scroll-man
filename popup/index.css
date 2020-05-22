@@ -89,3 +89,13 @@ a:hover, a:focus {
 .margin-top-0 {
     margin-top: 0;
 }
+
+#on-and-off {
+    width: 200px;
+    height: 80px;
+}
+
+#body {
+    text-align: center;
+    padding-bottom: 15px;
+}
