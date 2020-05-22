@@ -1,4 +1,4 @@
-const BUTTON_STYLE = 'background-color: white; width: 45px; height: 45px;'
+const BUTTON_STYLE = 'background-color: white; width: 25px; height: 25px;'
 const TIMER = 500;
 
 const common = (text, bottom, right, fn) => {
@@ -18,6 +18,15 @@ const common = (text, bottom, right, fn) => {
     $('body').append($d);
 }
 
+const button = () => {
+    if($("div.scroll-man").length) {
+        return;
+    }
+
+    common('&uarr;', 15, 55, () => window.scrollTo(0, 0));
+    common('&darr;', 15, 15, () => window.scrollTo(0, document.body.scrollHeight));
+}
+
 const draw = () => {
     window.$scrollMan.common.db.get(window.$scrollMan.CONST.ACTIVE).then((v) => {
         $('div.scroll-man').remove();
@@ -26,11 +35,12 @@ const draw = () => {
             return;
         }
 
-        common('&uarr;', 15, 75, () => window.scrollTo(0, 0));
-        common('&darr;', 15, 15, () => window.scrollTo(0, document.body.scrollHeight));
+        button();
     });
 }
 
-(function(){
+(function() {
+    draw();
+
     setInterval(draw, TIMER)
 })();
