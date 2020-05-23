@@ -31,9 +31,8 @@ const button = () => {
 
 const draw = () => {
     window.$scrollMan.common.db.get(window.$scrollMan.CONST.ACTIVE).then((v) => {
-        $('div.scroll-man').remove();
-
         if(!v) {
+            $('div.scroll-man').remove();
             return;
         }
 
