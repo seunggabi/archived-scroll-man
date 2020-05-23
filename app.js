@@ -24,7 +24,9 @@ const button = () => {
     }
 
     common('&uarr;', 15, 55, () => window.scrollTo(0, 0));
-    common('&darr;', 15, 15, () => window.scrollTo(0, document.body.scrollHeight));
+
+    const el = (document.scrollingElement || document.body);
+    common('&darr;', 15, 15, () => window.scrollTo(0, el.scrollHeight));
 }
 
 const draw = () => {
